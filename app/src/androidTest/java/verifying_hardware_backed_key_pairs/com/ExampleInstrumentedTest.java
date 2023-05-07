@@ -1,4 +1,4 @@
-package verifying_hardware_backend_key_pairs.com;
+package verifying_hardware_backed_key_pairs.com;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("verifying_hardware_backend_key_pairs.com", appContext.getPackageName());
+        assertEquals("verifying_hardware_backed_key_pairs.com", appContext.getPackageName());
     }
 }

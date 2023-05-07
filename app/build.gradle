@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace 'verifying_hardware_backend_key_pairs.com'
+    namespace 'verifying_hardware_backed_key_pairs.com'
     compileSdk 33
 
     defaultConfig {
-        applicationId "verifying_hardware_backend_key_pairs.com"
+        applicationId "verifying_hardware_backed_key_pairs.com"
         minSdk 24
         targetSdk 33
         versionCode 1

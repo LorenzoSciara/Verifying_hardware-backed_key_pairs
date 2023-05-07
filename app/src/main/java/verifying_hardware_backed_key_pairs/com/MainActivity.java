@@ -1,4 +1,4 @@
-package verifying_hardware_backend_key_pairs.com;
+package verifying_hardware_backed_key_pairs.com;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
