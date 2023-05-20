@@ -6,6 +6,8 @@ import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
 import android.util.Log;
 import android.widget.TextView;
+
+import java.io.FileInputStream;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.KeyStore;
@@ -42,9 +44,13 @@ public class MainActivity extends AppCompatActivity {
             // Verifying the attestation certificate chain
             KeyStore keyStore = KeyStore.getInstance(ANDROID_KEYSTORE);
             keyStore.load(null);
+            //FileInputStream fis = new FileInputStream("/path/to/keystore.jks");
+            //keyStore.store(FileInputStream);
+            String ks = keyStore.toString();
             Enumeration<String> aliases = keyStore.aliases();
             while (aliases.hasMoreElements()) {
                 String alias = aliases.nextElement();
+                //publicKey=publicKey.concat("\n new key: " + keyStore.getCertificate(alias).getPublicKey());
                 if (alias.equals(KEY_ALIAS)) {
                     Certificate[] certificateChain = keyStore.getCertificateChain(alias);
                     if (certificateChain != null && certificateChain.length > 0) {
