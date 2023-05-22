@@ -1,16 +1,24 @@
 package verifying_hardware_backed_key_pairs.com;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Context;
 import android.os.Bundle;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
 import android.util.Log;
 import android.widget.TextView;
+import androidx.security.crypto.MasterKeys;
 
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.security.Key;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.KeyStore;
+import java.security.Provider;
+import java.security.Security;
 import java.security.cert.Certificate;
 import java.util.Enumeration;
 
@@ -44,8 +52,30 @@ public class MainActivity extends AppCompatActivity {
             // Verifying the attestation certificate chain
             KeyStore keyStore = KeyStore.getInstance(ANDROID_KEYSTORE);
             keyStore.load(null);
-            //FileInputStream fis = new FileInputStream("/path/to/keystore.jks");
-            //keyStore.store(FileInputStream);
+
+            /*Context context = getApplicationContext();
+            File filesDir = context.getFilesDir();
+
+            String filesDirPath = filesDir.getAbsolutePath();
+
+            // Specificare il percorso di destinazione del file keystore
+            File exportDirectory = new File(filesDirPath);
+            exportDirectory.mkdirs(); // Crea la directory se non esiste
+
+            File exportFile = new File(exportDirectory, "exported_keystore.p12");
+            if(!exportFile.exists()){
+                exportFile.createNewFile();
+            }
+            FileOutputStream fos = new FileOutputStream(exportFile);
+
+            // Salvare il keystore nel file specificato
+            keyStore.store(fos, null);
+            fos.close();*/
+
+            Provider[] providers = Security.getProviders();
+            String masterKeyAlias= MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+            //String masterKeyAlias2 = MasterKey.build();
+
             String ks = keyStore.toString();
             Enumeration<String> aliases = keyStore.aliases();
             while (aliases.hasMoreElements()) {
@@ -64,6 +94,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             }
+            //Key pk = keyStore.getKey(masterKeyAlias, null);
+            //byte[] pke = pk.getEncoded();
+            publicKey = keyStore.getKey(masterKeyAlias, null).toString();
         } catch (Exception e) {
             Log.e(TAG, "Error: " + e.getMessage());
         }
